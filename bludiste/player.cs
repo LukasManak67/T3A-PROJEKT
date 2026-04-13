@@ -31,7 +31,9 @@ namespace bludiste
                 dashTimer--;
 
                 if (dashTimer <= 0)
+                {
                     isDashing = false;
+                }
             }
 
             float newX = X;
@@ -52,6 +54,8 @@ namespace bludiste
                 Y = newY;
             }
         }
+
+
 
         public void Draw(Graphics g, int cameraX, int cameraY)
         {

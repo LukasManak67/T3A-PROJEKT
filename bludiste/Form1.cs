@@ -11,6 +11,9 @@ namespace bludiste
 
         bool up, down, left, right;
 
+        List<Key> keys = new List<Key>();
+        int collectedKeys = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -33,6 +36,8 @@ namespace bludiste
             Point spawn = map.GetSpawnPosition();
 
             player = new Player(spawn.X, spawn.Y);
+
+            SpawnKeys();
 
 
         }
@@ -67,6 +72,20 @@ namespace bludiste
             cameraX = (int)(player.X - this.ClientSize.Width / 2);
             cameraY = (int)(player.Y - this.ClientSize.Height / 2);
 
+            foreach (var key in keys)
+            {
+                if (!key.Collected && key.CheckCollision(player))
+                {
+                    key.Collected = true;
+                    collectedKeys++;
+                }
+            }
+
+            if (collectedKeys == 4)
+            {
+                gameTimer.Stop();
+                MessageBox.Show("Vyhrál jsi!");
+            }
         }
 
 
@@ -87,7 +106,20 @@ namespace bludiste
 
             player.Draw(e.Graphics, cameraX, cameraY);
 
-            
+            foreach (var key in keys)
+            {
+                key.Draw(e.Graphics, cameraX, cameraY);
+            }
+
+            e.Graphics.DrawString(
+            $"Klíče: {collectedKeys}/4",
+            this.Font,
+            Brushes.Yellow,
+            20,
+            50
+            );
+
+
 
         }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -108,6 +140,22 @@ namespace bludiste
             if (e.KeyCode == Keys.S) down = false;
             if (e.KeyCode == Keys.A) left = false;
             if (e.KeyCode == Keys.D) right = false;
+        }
+
+        private void SpawnKeys()
+        {
+            var rooms = map.GetRooms();
+            Random rnd = new Random();
+
+            for (int i = 0; i < 4; i++)
+            {
+                Rectangle room = rooms[rnd.Next(rooms.Count)];
+
+                float x = (room.X + room.Width / 2) * map.TileSize;
+                float y = (room.Y + room.Height / 2) * map.TileSize;
+
+                keys.Add(new Key(x, y));
+            }
         }
 
     }

@@ -31,8 +31,9 @@ namespace bludiste
                 dashTimer--;
 
                 if (dashTimer <= 0)
+                {
                     isDashing = false;
-            }
+                }
 
             float newX = X;
             float newY = Y;

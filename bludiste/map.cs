@@ -12,7 +12,7 @@ namespace bludiste
 
         public int[,] grid;
 
-        public Map()    
+        public Map()
         {
             grid = new int[Height, Width];
 
@@ -21,6 +21,24 @@ namespace bludiste
             ConnectRooms();
         }
 
+        private void GenerateBorders()
+        {
+            for (int radek  = 0; radek < Height; radek++)
+            {
+                for (int sloupec = 0; sloupec < Width; sloupec++)
+                {
+                    if (radek == 0 || radek == Height - 1 ||
+                        sloupec == 0 || sloupec == Width - 1)
+                    {
+                        grid[radek, sloupec] = 1; // zeď
+                    }
+                    else
+                    {
+                        grid[radek, sloupec] = 0; // volno
+                    }
+                }
+            }
+        }
 
         public void Draw(Graphics g, int cameraX, int cameraY)
         {
@@ -61,8 +79,8 @@ namespace bludiste
                 for (int c = 0; c < Width; c++)
                 {
                     grid[r, c] = 1;
-                }
             }
+        }
         }
 
         private void GenerateRooms()
@@ -146,11 +164,11 @@ namespace bludiste
             }
 
             while (y != b.Y)
-            {
+                {
                 grid[y, x] = 0;
                 y += Math.Sign(b.Y - y);
+                }
             }
-        }
 
         public Point GetSpawnPosition()
         {

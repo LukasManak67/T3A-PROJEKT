@@ -6,7 +6,7 @@ namespace bludiste
     {
         public float X;
         public float Y;
-        public int Size = 20;
+        public int Size = 50;
         public bool Collected = false;
 
         public Key(float x, float y)

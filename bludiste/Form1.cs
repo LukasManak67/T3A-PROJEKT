@@ -147,7 +147,7 @@ namespace bludiste
             var rooms = map.GetRooms();
             Random rnd = new Random();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Rectangle room = rooms[rnd.Next(rooms.Count)];
 

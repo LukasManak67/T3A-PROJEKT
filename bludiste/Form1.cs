@@ -12,7 +12,13 @@ namespace bludiste
         bool up, down, left, right;
 
         List<Key> keys = new List<Key>();
-        int collectedKeys = 0;
+
+        bool collectingRed = false;
+        string message = "";
+        int messageTimer = 0;
+
+        int redKeys = 0;
+        int yellowKeys = 0;
 
         public Form1()
         {
@@ -37,12 +43,12 @@ namespace bludiste
 
             player = new Player(spawn.X, spawn.Y);
 
-            SpawnKeys();
-
+            SpawnKeys(KeyType.Yellow);
 
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            MessageBox.Show("Prvně posbírej všechny ŽLUTÉ klíče a potom ČERVENÉ klíče");
         }
 
         private void GameLoop(object sender, EventArgs e)
@@ -74,17 +80,43 @@ namespace bludiste
 
             foreach (var key in keys)
             {
-                if (!key.Collected && key.CheckCollision(player))
+                if (key.Collected) continue;
+
+                if (key.CheckCollision(player))
                 {
                     key.Collected = true;
-                    collectedKeys++;
+
+                    if (key.Type == KeyType.Yellow)
+                        yellowKeys++;
+                    else
+                        redKeys++;
+
+                    break;
                 }
             }
 
-            if (collectedKeys == 4)
+            // přechod na červené klíče
+            if (yellowKeys == 4 && !collectingRed)
+            {
+                collectingRed = true;
+
+                message = "Dobrá práce! Teď posbírej ČERVENÉ klíče!";
+                messageTimer = 180;
+
+                SpawnKeys(KeyType.Red);
+            }
+
+            // výhra
+            if (collectingRed && redKeys == 4)
             {
                 gameTimer.Stop();
                 MessageBox.Show("Vyhrál jsi!");
+            }
+
+            // timer zprávy
+            if (messageTimer > 0)
+            {
+                messageTimer--;
             }
         }
 
@@ -111,13 +143,32 @@ namespace bludiste
                 key.Draw(e.Graphics, cameraX, cameraY);
             }
 
+            Font bigFont = new Font("Arial", 24, FontStyle.Bold);
+
+            // žluté klíče
+            string yellowText = $"Žluté klíče: {yellowKeys}/4";
+            SizeF ySize = e.Graphics.MeasureString(yellowText, bigFont);
+
             e.Graphics.DrawString(
-            $"Klíče: {collectedKeys}/4",
-            this.Font,
-            Brushes.Yellow,
-            20,
-            50
+                yellowText,
+                bigFont,
+                Brushes.Gold,
+                (ClientSize.Width - ySize.Width) / 2,
+                20
             );
+
+            // červené klíče
+            string redText = $"Červené klíče: {redKeys}/4";
+            SizeF rSize = e.Graphics.MeasureString(redText, bigFont);
+
+            e.Graphics.DrawString(
+                redText,
+                bigFont,
+                Brushes.Red,
+                (ClientSize.Width - rSize.Width) / 2,
+                60
+            );
+
 
 
 
@@ -142,19 +193,32 @@ namespace bludiste
             if (e.KeyCode == Keys.D) right = false;
         }
 
-        private void SpawnKeys()
+        private void SpawnKeys(KeyType type)
         {
+            keys.Clear();
+
             var rooms = map.GetRooms();
             Random rnd = new Random();
 
-            for (int i = 0; i < 5; i++)
+            Rectangle spawnRoom = rooms[0]; // místnost hráče
+            HashSet<Rectangle> usedRooms = new HashSet<Rectangle>();
+
+            for (int i = 0; i < 4; i++)
             {
-                Rectangle room = rooms[rnd.Next(rooms.Count)];
+                Rectangle room;
+
+                do
+                {
+                    room = rooms[rnd.Next(rooms.Count)];
+                }
+                while (room == spawnRoom || usedRooms.Contains(room));
+
+                usedRooms.Add(room);
 
                 float x = (room.X + room.Width / 2) * map.TileSize;
                 float y = (room.Y + room.Height / 2) * map.TileSize;
 
-                keys.Add(new Key(x, y));
+                keys.Add(new Key(x, y, type));
             }
         }
 

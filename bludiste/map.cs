@@ -6,7 +6,7 @@ namespace bludiste
     {
         Random rnd = new Random();
         List<Rectangle> rooms = new List<Rectangle>();
-        public int TileSize = 150;
+        public int TileSize = 130;
         public int Width = 50;
         public int Height = 50;
 
@@ -47,8 +47,8 @@ namespace bludiste
                 for (int sloupec = 0; sloupec < Width; sloupec++)
                 {
                     Brush brush = grid[radek, sloupec] == 1
-                        ? Brushes.DarkGray
-                        : Brushes.LightGray;
+                        ? Brushes.Black
+                        : Brushes.White;
 
                     g.FillRectangle(
                         brush,

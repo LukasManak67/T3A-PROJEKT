@@ -11,8 +11,8 @@ namespace bludiste
         private bool isDashing = false;
         private int dashTimer = 0;
         private int dashDuration = 10;
-        public float NSpeed = 5f;
-        public float DSpeed = 20f;
+        public float NSpeed = 10f;
+        public float DSpeed = 25f;
         public int Size = 40;
 
         public Player(int startX, int startY)

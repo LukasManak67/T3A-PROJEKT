@@ -1,6 +1,6 @@
 ﻿namespace bludiste
 {
-    partial class MenuForm
+    partial class WinForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WinForm));
             label1 = new Label();
             button1 = new Button();
             button2 = new Button();
-            button3 = new Button();
             SuspendLayout();
             // 
             // label1
@@ -40,21 +39,21 @@
             label1.AutoSize = true;
             label1.BackColor = SystemColors.ActiveCaption;
             label1.Font = new Font("Impact", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(224, 58);
+            label1.Location = new Point(208, 79);
             label1.Name = "label1";
-            label1.Size = new Size(168, 45);
-            label1.TabIndex = 0;
-            label1.Text = "LABYRINT";
+            label1.Size = new Size(191, 45);
+            label1.TabIndex = 1;
+            label1.Text = "VYHRÁL JSI";
             // 
             // button1
             // 
             button1.BackColor = SystemColors.Info;
             button1.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            button1.Location = new Point(247, 147);
+            button1.Location = new Point(242, 180);
             button1.Name = "button1";
             button1.Size = new Size(122, 62);
-            button1.TabIndex = 1;
-            button1.Text = "START";
+            button1.TabIndex = 2;
+            button1.Text = "HRÁT ZNOVA";
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
@@ -62,39 +61,25 @@
             // 
             button2.BackColor = SystemColors.Info;
             button2.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            button2.Location = new Point(247, 230);
+            button2.Location = new Point(242, 299);
             button2.Name = "button2";
             button2.Size = new Size(122, 62);
-            button2.TabIndex = 2;
-            button2.Text = "Ovládání";
+            button2.TabIndex = 3;
+            button2.Text = "MENU";
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
-            // button3
-            // 
-            button3.BackColor = SystemColors.Info;
-            button3.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            button3.Location = new Point(247, 313);
-            button3.Name = "button3";
-            button3.Size = new Size(122, 62);
-            button3.TabIndex = 3;
-            button3.Text = "Konec";
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += button3_Click;
-            // 
-            // MenuForm
+            // WinForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(585, 534);
-            Controls.Add(button3);
+            ClientSize = new Size(612, 549);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label1);
-            Name = "MenuForm";
-            Text = "MenuForm";
-            Load += MenuForm_Load;
+            Name = "WinForm";
+            Text = "WinForm";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -104,6 +89,5 @@
         private Label label1;
         private Button button1;
         private Button button2;
-        private Button button3;
     }
 }

@@ -110,7 +110,13 @@ namespace bludiste
             if (collectingRed && redKeys == 4)
             {
                 gameTimer.Stop();
-                MessageBox.Show("Vyhrál jsi!");
+
+                this.Hide();
+
+                WinForm win = new WinForm();
+                win.ShowDialog();
+
+                this.Close();
             }
 
             // timer zprávy

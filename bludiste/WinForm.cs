@@ -8,16 +8,11 @@ using System.Windows.Forms;
 
 namespace bludiste
 {
-    public partial class MenuForm : Form
+    public partial class WinForm : Form
     {
-        public MenuForm()
+        public WinForm()
         {
             InitializeComponent();
-        }
-
-        private void MenuForm_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -27,22 +22,17 @@ namespace bludiste
             Form1 game = new Form1();
             game.ShowDialog();
 
-            this.Show();
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(
-                "OVLÁDÁNÍ\n\n" +
-                "Pohyb - W, S, A, D\n" +
-                "Dash - mezerník"
-            );
+            this.Hide();
 
-        }
+            MenuForm menu = new MenuForm();
+            menu.ShowDialog();
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
+            this.Close();
         }
     }
 }

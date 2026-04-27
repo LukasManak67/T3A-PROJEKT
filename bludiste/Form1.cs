@@ -100,9 +100,6 @@ namespace bludiste
             {
                 collectingRed = true;
 
-                message = "Dobrá práce! Teď posbírej ČERVENÉ klíče!";
-                messageTimer = 180;
-
                 SpawnKeys(KeyType.Red);
             }
 
@@ -119,11 +116,6 @@ namespace bludiste
                 this.Close();
             }
 
-            // timer zprávy
-            if (messageTimer > 0)
-            {
-                messageTimer--;
-            }
         }
 
 
